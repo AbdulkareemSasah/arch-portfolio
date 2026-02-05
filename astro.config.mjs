@@ -7,6 +7,8 @@ import node from '@astrojs/node';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
+import sitemap from '@astrojs/sitemap';
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://astro.build/config
@@ -21,5 +23,5 @@ export default defineConfig({
       }
     }
   },
-  integrations: [react(), keystatic()]
+  integrations: [react(), keystatic(), sitemap()]
 });

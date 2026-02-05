@@ -469,6 +469,29 @@ const pageBuilderBlocks = fields.blocks(
 );
 
 // ============================================
+// SHARED SCHEMAS
+// ============================================
+
+const linkSchema = fields.conditional(
+    fields.select({
+        label: 'نوع الرابط',
+        options: [
+            { label: 'رابط خارجي / مخصص', value: 'custom' },
+            { label: 'صفحة', value: 'page' },
+            { label: 'مشروع', value: 'project' },
+            { label: 'خدمة', value: 'service' },
+        ],
+        defaultValue: 'custom',
+    }),
+    {
+        custom: fields.text({ label: 'الرابط (URL)', validation: { length: { min: 1 } } }),
+        page: fields.relationship({ label: 'اختر الصفحة', collection: 'pages', validation: { isRequired: true } }),
+        project: fields.relationship({ label: 'اختر المشروع', collection: 'projects', validation: { isRequired: true } }),
+        service: fields.relationship({ label: 'اختر الخدمة', collection: 'services', validation: { isRequired: true } }),
+    }
+);
+
+// ============================================
 // KEYSTATIC CONFIGURATION
 // ============================================
 
@@ -489,37 +512,44 @@ export default config({
                 colorPrimary: fields.text({
                     label: 'اللون الأساسي',
                     defaultValue: '#1a1a2e',
-                    description: 'اللون الرئيسي للموقع',
+                    description: 'اللون الرئيسي للموقع (Hex Code)',
+                    validation: { length: { min: 4, max: 7 }, pattern: { regex: /^#([0-9a-f]{3}){1,2}$/i, message: 'يرجى إدخال كود لون صحيح (مثال: #ff0000)' } },
                 }),
                 colorSecondary: fields.text({
                     label: 'اللون الثانوي',
                     defaultValue: '#16213e',
                     description: 'اللون الثانوي للموقع',
+                    validation: { length: { min: 4, max: 7 }, pattern: { regex: /^#([0-9a-f]{3}){1,2}$/i, message: 'يرجى إدخال كود لون صحيح' } },
                 }),
                 colorAccent: fields.text({
                     label: 'لون التمييز',
                     defaultValue: '#e94560',
                     description: 'لون الأزرار والعناصر المميزة',
+                    validation: { length: { min: 4, max: 7 }, pattern: { regex: /^#([0-9a-f]{3}){1,2}$/i, message: 'يرجى إدخال كود لون صحيح' } },
                 }),
                 colorBackground: fields.text({
                     label: 'لون الخلفية',
                     defaultValue: '#0f0f1a',
                     description: 'لون خلفية الموقع',
+                    validation: { length: { min: 4, max: 7 }, pattern: { regex: /^#([0-9a-f]{3}){1,2}$/i, message: 'يرجى إدخال كود لون صحيح' } },
                 }),
                 colorSurface: fields.text({
                     label: 'لون السطح',
                     defaultValue: '#1a1a2e',
                     description: 'لون البطاقات والعناصر',
+                    validation: { length: { min: 4, max: 7 }, pattern: { regex: /^#([0-9a-f]{3}){1,2}$/i, message: 'يرجى إدخال كود لون صحيح' } },
                 }),
                 colorText: fields.text({
                     label: 'لون النص',
                     defaultValue: '#eaeaea',
                     description: 'لون النص الرئيسي',
+                    validation: { length: { min: 4, max: 7 }, pattern: { regex: /^#([0-9a-f]{3}){1,2}$/i, message: 'يرجى إدخال كود لون صحيح' } },
                 }),
                 colorTextMuted: fields.text({
                     label: 'لون النص الثانوي',
                     defaultValue: '#a0a0a0',
                     description: 'لون النص الثانوي والتوضيحي',
+                    validation: { length: { min: 4, max: 7 }, pattern: { regex: /^#([0-9a-f]{3}){1,2}$/i, message: 'يرجى إدخال كود لون صحيح' } },
                 }),
 
                 // Border Radius
@@ -647,12 +677,12 @@ export default config({
                 navigation: fields.array(
                     fields.object({
                         label: fields.text({ label: 'النص', validation: { isRequired: true } }),
-                        link: fields.text({ label: 'الرابط' }),
+                        link: linkSchema,
                         isDropdown: fields.checkbox({ label: 'قائمة منسدلة', defaultValue: false }),
                         dropdownItems: fields.array(
                             fields.object({
                                 label: fields.text({ label: 'النص', validation: { isRequired: true } }),
-                                link: fields.text({ label: 'الرابط', validation: { isRequired: true } }),
+                                link: linkSchema,
                             }),
                             { label: 'عناصر القائمة المنسدلة' }
                         ),
@@ -681,7 +711,7 @@ export default config({
                         links: fields.array(
                             fields.object({
                                 label: fields.text({ label: 'النص', validation: { isRequired: true } }),
-                                link: fields.text({ label: 'الرابط', validation: { isRequired: true } }),
+                                link: linkSchema,
                             }),
                             { label: 'الروابط' }
                         ),

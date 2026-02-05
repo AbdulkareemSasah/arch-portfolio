@@ -1,4 +1,6 @@
 ---
+import { resolveLink } from "../../lib/navigation";
+
 interface NavItem {
     label: string;
     link?: string;
@@ -77,7 +79,9 @@ const {
                                                 (subItem) => (
                                                     <li>
                                                         <a
-                                                            href={subItem.link}
+                                                            href={resolveLink(
+                                                                subItem.link,
+                                                            )}
                                                             class="dropdown-link"
                                                         >
                                                             {subItem.label}
@@ -88,7 +92,10 @@ const {
                                         </ul>
                                     </>
                                 ) : (
-                                    <a href={item.link} class="nav-link">
+                                    <a
+                                        href={resolveLink(item.link || "#")}
+                                        class="nav-link"
+                                    >
                                         {item.label}
                                     </a>
                                 )}
@@ -482,42 +489,60 @@ const {
 </style>
 
 <script>
-    // Mobile menu toggle
-    const menuToggle = document.getElementById("menu-toggle");
-    const navWrapper = document.getElementById("nav-wrapper");
+    function setupHeader() {
+        // Mobile menu toggle
+        const menuToggle = document.getElementById("menu-toggle");
+        const navWrapper = document.getElementById("nav-wrapper");
 
-    menuToggle?.addEventListener("click", () => {
-        menuToggle.classList.toggle("active");
-        navWrapper?.classList.toggle("active");
-    });
-
-    // Dropdown toggle for mobile
-    const dropdownTriggers = document.querySelectorAll(".dropdown-trigger");
-    dropdownTriggers.forEach((trigger) => {
-        trigger.addEventListener("click", (e) => {
-            if (window.innerWidth <= 1024) {
-                e.preventDefault();
-                trigger.closest(".has-dropdown")?.classList.toggle("active");
-            }
-        });
-    });
-
-    // Theme toggle
-    const themeToggle = document.getElementById("theme-toggle");
-    themeToggle?.addEventListener("click", () => {
-        document.documentElement.classList.toggle("light-mode");
-        const isLight =
-            document.documentElement.classList.contains("light-mode");
-        localStorage.setItem("theme", isLight ? "light" : "dark");
-    });
-
-    // Header scroll effect
-    const header = document.querySelector(".header");
-    window.addEventListener("scroll", () => {
-        if (window.scrollY > 50) {
-            header?.classList.add("scrolled");
-        } else {
-            header?.classList.remove("scrolled");
+        if (menuToggle && navWrapper) {
+            // Remove old listener to avoid duplicates if element persists
+            const newMenuToggle = menuToggle.cloneNode(true);
+            menuToggle.parentNode?.replaceChild(newMenuToggle, menuToggle);
+            
+            newMenuToggle.addEventListener("click", () => {
+                newMenuToggle.classList.toggle("active");
+                navWrapper.classList.toggle("active");
+            });
         }
-    });
+
+        // Dropdown toggle for mobile
+        const dropdownTriggers = document.querySelectorAll(".dropdown-trigger");
+        dropdownTriggers.forEach((trigger) => {
+            trigger.addEventListener("click", (e) => {
+                if (window.innerWidth <= 1024) {
+                    e.preventDefault();
+                    trigger.closest(".has-dropdown")?.classList.toggle("active");
+                }
+            });
+        });
+
+        // Theme toggle
+        const themeToggle = document.getElementById("theme-toggle");
+        if (themeToggle) {
+            themeToggle.addEventListener("click", () => {
+                document.documentElement.classList.toggle("light-mode");
+                const isLight = document.documentElement.classList.contains("light-mode");
+                localStorage.setItem("theme", isLight ? "light" : "dark");
+            });
+        }
+
+        // Header scroll effect
+        const header = document.querySelector(".header");
+        const handleScroll = () => {
+             if (window.scrollY > 50) {
+                header?.classList.add("scrolled");
+            } else {
+                header?.classList.remove("scrolled");
+            }
+        };
+        
+        window.removeEventListener("scroll", handleScroll); // Cleanup potential old listener
+        window.addEventListener("scroll", handleScroll);
+    }
+
+    // Run on initial load
+    setupHeader();
+
+    // Run on view transitions navigation
+    document.addEventListener("astro:page-load", setupHeader);
 </script>

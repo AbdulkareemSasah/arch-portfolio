@@ -1,4 +1,6 @@
 ---
+import { resolveLink } from "../../lib/navigation";
+
 interface FooterColumn {
     title: string;
     links: { label: string; link: string }[];
@@ -208,7 +210,10 @@ const formattedCopyright = copyrightText.replace(
                         <ul class="footer-links">
                             {column.links.map((link) => (
                                 <li>
-                                    <a href={link.link} class="footer-link">
+                                    <a
+                                        href={resolveLink(link.link)}
+                                        class="footer-link"
+                                    >
                                         {link.label}
                                     </a>
                                 </li>

@@ -1,6 +1,7 @@
 ---
 import { getEntry } from "astro:content";
 import "@/styles/global.css";
+import { ClientRouter } from 'astro:transitions';
 
 // Fetch all settings
 const theme = await getEntry("settings", "theme");
@@ -42,6 +43,7 @@ const pageDescription = description || siteData.siteDescription;
 <!doctype html>
 <html lang="ar" dir="rtl">
     <head>
+        <ClientRouter />
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="description" content={pageDescription} />
@@ -118,7 +120,7 @@ const pageDescription = description || siteData.siteDescription;
             </slot>
         </div>
 
-        <script>
+        <script is:inline>
             // Theme toggle functionality
             const initTheme = () => {
                 const savedTheme = localStorage.getItem("theme");
@@ -128,12 +130,23 @@ const pageDescription = description || siteData.siteDescription;
 
                 if (savedTheme === "light") {
                     document.documentElement.classList.add("light-mode");
-                } else if (!savedTheme && !prefersDark) {
-                    document.documentElement.classList.add("light-mode");
+                } else if (savedTheme === "dark") {
+                    document.documentElement.classList.remove("light-mode");
+                } else {
+                    // System preference fallback
+                    if (!prefersDark) {
+                        document.documentElement.classList.add("light-mode");
+                    } else {
+                        document.documentElement.classList.remove("light-mode");
+                    }
                 }
             };
 
+            // Run on initial load
             initTheme();
+
+            // Run on view transitions navigation
+            document.addEventListener('astro:after-swap', initTheme);
         </script>
     </body>
 </html>

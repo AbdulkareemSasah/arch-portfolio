@@ -5,15 +5,24 @@
             "links": [
                 {
                     "label": "من نحن",
-                    "link": "/about"
+                    "link": {
+                        "discriminant": "page",
+                        "value": "about"
+                    }
                 },
                 {
                     "label": "فريق العمل",
-                    "link": "/team"
+                    "link": {
+                        "discriminant": "custom",
+                        "value": "/team"
+                    }
                 },
                 {
                     "label": "وظائف",
-                    "link": "/careers"
+                    "link": {
+                        "discriminant": "custom",
+                        "value": "/careers"
+                    }
                 }
             ]
         },
@@ -22,15 +31,24 @@
             "links": [
                 {
                     "label": "التصميم المعماري",
-                    "link": "/services/architectural-design"
+                    "link": {
+                        "discriminant": "custom",
+                        "value": "/services/architectural-design"
+                    }
                 },
                 {
                     "label": "التصميم الداخلي",
-                    "link": "/services/interior-design"
+                    "link": {
+                        "discriminant": "custom",
+                        "value": "/services/interior-design"
+                    }
                 },
                 {
                     "label": "التخطيط العمراني",
-                    "link": "/services/urban-planning"
+                    "link": {
+                        "discriminant": "custom",
+                        "value": "/services/urban-planning"
+                    }
                 }
             ]
         },
@@ -39,11 +57,17 @@
             "links": [
                 {
                     "label": "اتصل بنا",
-                    "link": "/contact"
+                    "link": {
+                        "discriminant": "custom",
+                        "value": "/contact"
+                    }
                 },
                 {
                     "label": "الموقع",
-                    "link": "/location"
+                    "link": {
+                        "discriminant": "custom",
+                        "value": "/location"
+                    }
                 }
             ]
         }
