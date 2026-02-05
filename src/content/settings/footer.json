@@ -1,0 +1,62 @@
+{
+    "columns": [
+        {
+            "title": "الشركة",
+            "links": [
+                {
+                    "label": "من نحن",
+                    "link": "/about"
+                },
+                {
+                    "label": "فريق العمل",
+                    "link": "/team"
+                },
+                {
+                    "label": "وظائف",
+                    "link": "/careers"
+                }
+            ]
+        },
+        {
+            "title": "خدماتنا",
+            "links": [
+                {
+                    "label": "التصميم المعماري",
+                    "link": "/services/architectural-design"
+                },
+                {
+                    "label": "التصميم الداخلي",
+                    "link": "/services/interior-design"
+                },
+                {
+                    "label": "التخطيط العمراني",
+                    "link": "/services/urban-planning"
+                }
+            ]
+        },
+        {
+            "title": "تواصل معنا",
+            "links": [
+                {
+                    "label": "اتصل بنا",
+                    "link": "/contact"
+                },
+                {
+                    "label": "الموقع",
+                    "link": "/location"
+                }
+            ]
+        }
+    ],
+    "showSocial": true,
+    "socialLinks": {
+        "facebook": "",
+        "twitter": "",
+        "instagram": "",
+        "linkedin": "",
+        "youtube": "",
+        "whatsapp": ""
+    },
+    "copyrightText": "© {year} مكتب معماري. جميع الحقوق محفوظة",
+    "showBackToTop": true
+}

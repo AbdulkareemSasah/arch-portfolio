@@ -1,0 +1,33 @@
+{
+    "logoPosition": "right",
+    "navigation": [
+        {
+            "label": "الرئيسية",
+            "link": "/",
+            "isDropdown": false,
+            "dropdownItems": []
+        },
+        {
+            "label": "المشاريع",
+            "link": "/projects",
+            "isDropdown": false,
+            "dropdownItems": []
+        },
+        {
+            "label": "الخدمات",
+            "link": "/services",
+            "isDropdown": false,
+            "dropdownItems": []
+        },
+        {
+            "label": "من نحن",
+            "link": "/about",
+            "isDropdown": false,
+            "dropdownItems": []
+        }
+    ],
+    "showCta": true,
+    "ctaText": "تواصل معنا",
+    "ctaLink": "/contact",
+    "showThemeToggle": true
+}
