@@ -13,6 +13,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://astro.build/config
 export default defineConfig({
+  site: process.env.SITE_URL || 'https://archhakeem.vercel.app',
   output: 'server',
   adapter: node({ mode: 'standalone' }),
   vite: {
