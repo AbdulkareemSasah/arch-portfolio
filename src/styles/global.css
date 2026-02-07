@@ -295,11 +295,11 @@ img {
    LIGHT MODE
    ======================================== */
 
-.light-mode {
-    --color-background: #ffffff;
-    --color-surface: #f5f5f7;
-    --color-text: #1a1a2e;
-    --color-text-muted: #666666;
+html.light-mode {
+    --color-background: #ffffff !important;
+    --color-surface: #f5f5f7 !important;
+    --color-text: #1a1a2e !important;
+    --color-text-muted: #666666 !important;
 }
 
 /* ========================================

@@ -24,5 +24,8 @@ export default defineConfig({
       }
     }
   },
-  integrations: [react(), keystatic(), sitemap()]
+  integrations: [react(), keystatic(), sitemap()],
+  redirects: {
+    '/dashboard': '/keystatic'
+  }
 });

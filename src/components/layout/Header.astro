@@ -496,9 +496,9 @@ const {
 
         if (menuToggle && navWrapper) {
             // Remove old listener to avoid duplicates if element persists
-            const newMenuToggle = menuToggle.cloneNode(true);
+            const newMenuToggle = menuToggle.cloneNode(true) as HTMLElement;
             menuToggle.parentNode?.replaceChild(newMenuToggle, menuToggle);
-            
+
             newMenuToggle.addEventListener("click", () => {
                 newMenuToggle.classList.toggle("active");
                 navWrapper.classList.toggle("active");
@@ -511,7 +511,9 @@ const {
             trigger.addEventListener("click", (e) => {
                 if (window.innerWidth <= 1024) {
                     e.preventDefault();
-                    trigger.closest(".has-dropdown")?.classList.toggle("active");
+                    trigger
+                        .closest(".has-dropdown")
+                        ?.classList.toggle("active");
                 }
             });
         });
@@ -519,23 +521,29 @@ const {
         // Theme toggle
         const themeToggle = document.getElementById("theme-toggle");
         if (themeToggle) {
-            themeToggle.addEventListener("click", () => {
+            // Remove old listener if any (by cloning) - though usually not needed if unique id per page load
+            const newThemeToggle = themeToggle.cloneNode(true) as HTMLElement;
+            themeToggle.parentNode?.replaceChild(newThemeToggle, themeToggle);
+
+            newThemeToggle.addEventListener("click", () => {
                 document.documentElement.classList.toggle("light-mode");
-                const isLight = document.documentElement.classList.contains("light-mode");
+                const isLight =
+                    document.documentElement.classList.contains("light-mode");
                 localStorage.setItem("theme", isLight ? "light" : "dark");
+                console.log("Theme toggled to:", isLight ? "light" : "dark");
             });
         }
 
         // Header scroll effect
         const header = document.querySelector(".header");
         const handleScroll = () => {
-             if (window.scrollY > 50) {
+            if (window.scrollY > 50) {
                 header?.classList.add("scrolled");
             } else {
                 header?.classList.remove("scrolled");
             }
         };
-        
+
         window.removeEventListener("scroll", handleScroll); // Cleanup potential old listener
         window.addEventListener("scroll", handleScroll);
     }
