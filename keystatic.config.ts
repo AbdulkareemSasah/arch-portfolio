@@ -498,9 +498,10 @@ const linkSchema = fields.conditional(
 export default config({
     locale: "ar-AE",
     storage: {
-        kind: 'local',
-        // repo: 'AbdulkareemSasah/arch-portfolio',
-        // branchPrefix: 'master',
+        kind: 'cloud',
+    },
+    cloud: {
+        project: 'arch/arch-hakeem',
     },
     ui: {
 
