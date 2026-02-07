@@ -14,7 +14,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://astro.build/config
 export default defineConfig({
-  site: process.env.SITE_URL || 'https://archhakeem.vercel.app',
+  site: process.env.SITE_URL || 'https://arch-hakeem.vercel.app',
   output: 'server',
   adapter: vercel({
     webAnalytics: { enabled: true }
